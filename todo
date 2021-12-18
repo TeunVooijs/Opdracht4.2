@@ -1,0 +1,23 @@
+void ritsen();                            done  werkt
+void flood_fill(bordvakje* pos);          done  werkt
+void doe_zet(bordvakje* pos);             done  werkt
+void koffie_zet();                        done  werkt
+void closed_counter();                    done  werkt
+void speler_af();                         done  werkt
+void legenda();                           done  werkt
+void drukaf ( );                          done  werkt
+void rand_zet();                          done  werkt
+void player_zet();                        done  werkt
+void flag_zet();                          done  werkt
+koffiebord (int h, int b, int p);         done  werkt
+void koffies();                           done  werkt
+bordvakje* readcoord(int i, int j);       done  werkt
+bordvakje* maak_bord();                   done  werkt
+bordvakje* maakrij();                     done  werkt
+
+stapel moet nog helemaal
+
+r
+10
+10
+10
