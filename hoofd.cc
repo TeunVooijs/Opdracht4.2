@@ -62,7 +62,6 @@ int read_num(int aantal){
 
 void menu(koffiebord* & player_koffiebord){
 	int arr[2];
-	// stapel* st = new stapel;
 
   while (true){
 		
@@ -78,7 +77,6 @@ void menu(koffiebord* & player_koffiebord){
     case 's': case 'S':
       return;
     case 'z': case 'Z':
-			// st -> zetopstapel(player_koffiebord);
       player_koffiebord -> player_zet();
       break;
     case 'f': case 'F':
@@ -86,28 +84,11 @@ void menu(koffiebord* & player_koffiebord){
       break;
     case 'r': case 'R':
     cout << "bla" << endl;
-			// st -> zetopstapel(player_koffiebord);
       player_koffiebord -> rand_zet();
       break;
     case 'c': case 'C':
-      player_koffiebord -> reset_bord();
-      break;
-    case 't': case 'T':
 			player_koffiebord -> comp();
-			// return;
-			// player_koffiebord -> reset_bord();
-			// player_koffiebord -> tester();
-		 	// st -> haalvanstapel(player_koffiebord);
-			//  cout << "Test" << endl;
-		  
-			// for (int i = 0; i < 5; i++)
-			// {
-			// 	player_koffiebord -> reset_bord();
-			// }
-			
-			
-			
-			break;
+			return;
 		default:
       cout << "Verkeerde letter" << endl;
       break;
@@ -116,10 +97,6 @@ void menu(koffiebord* & player_koffiebord){
   }
 }
 
-	// case 'c': case 'C':
-	//   player_koffiebord -> ~koffiebord();
-	//   player_koffiebord = new koffiebord();
-	//   break;
 
 int main(){
 	int h, b, p;
@@ -156,5 +133,5 @@ int main(){
     }  
   }
 			
-		return 0;
+	return 0;
 }

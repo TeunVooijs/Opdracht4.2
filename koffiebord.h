@@ -34,14 +34,14 @@ class koffiebord {
     bool comp_af, comp_win;
     void comp_doe_zet(bordvakje* pos);
     void comp_zet();
+    void controle_win();
+    void player_win();
 
     // void doe_zet(bordvakje* pos);
   public:
-    bordvakje* copybord();
     bordvakje* ingang;
     void reset_bord();
     void comp();
-    void tester();
     int hoogte, breedte, percentage;
     bool spel_af;
     void legenda();
@@ -51,5 +51,4 @@ class koffiebord {
     void flag_zet();
     koffiebord (int h, int b, int p);
     ~koffiebord ();
-    // TODO
 };//koffiebord
