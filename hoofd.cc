@@ -51,7 +51,7 @@ int read_num(int aantal){
 		if (kar >= '1' && kar <= '9'){
 			firstnum = true;
 		}
-		if (kar >= '0' && kar <= '9' && getal < 100 && aantal >= 1 && firstnum == true){
+		if (kar >= '0' && kar <= '9' && getal < 1000000 && aantal >= 1 && firstnum == true){
 			numkar = kar - 48;
 			getal = getal * 10 + numkar;
 			aantal -= 1;
@@ -90,13 +90,24 @@ void menu(koffiebord* & player_koffiebord){
       player_koffiebord -> rand_zet();
       break;
     case 'c': case 'C':
-      // player_koffiebord -> choofd(player_koffiebord);
-      return;
+      player_koffiebord -> reset_bord();
+      break;
     case 't': case 'T':
-			player_koffiebord -> reset_bord();
+			player_koffiebord -> comp();
+			// return;
+			// player_koffiebord -> reset_bord();
+			// player_koffiebord -> tester();
 		 	// st -> haalvanstapel(player_koffiebord);
 			//  cout << "Test" << endl;
-		  break;
+		  
+			// for (int i = 0; i < 5; i++)
+			// {
+			// 	player_koffiebord -> reset_bord();
+			// }
+			
+			
+			
+			break;
 		default:
       cout << "Verkeerde letter" << endl;
       break;
@@ -136,8 +147,11 @@ int main(){
     case 'n': case 'N':
       return 0;
     case 'j': case 'J':
+			main_koffiebord -> ~koffiebord();
+
       break;
     default:
+			main_koffiebord -> ~koffiebord();
       break;
     }  
   }

@@ -29,15 +29,20 @@ class koffiebord {
     void speler_af();
     int closed_cells;
     int aantal_koffies;
+    int comp_zetten;
     int zetten;
+    bool comp_af, comp_win;
+    void comp_doe_zet(bordvakje* pos);
+    void comp_zet();
 
     // void doe_zet(bordvakje* pos);
   public:
-    bool comp_af;
-    void reset_bord();
-    int hoogte, breedte, percentage;
     bordvakje* copybord();
     bordvakje* ingang;
+    void reset_bord();
+    void comp();
+    void tester();
+    int hoogte, breedte, percentage;
     bool spel_af;
     void legenda();
     void drukaf ( );

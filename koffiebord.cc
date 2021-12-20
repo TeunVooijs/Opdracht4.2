@@ -10,7 +10,7 @@ int read_num(int aantal);
 
 
 bordvakje::bordvakje ( ) {
-  geopend = true;
+  geopend = false;
   flag = false;
   marked = false;
   aantal_buren = 0;
@@ -35,16 +35,25 @@ koffiebord::koffiebord (int h, int b, int p) {
 }//koffiebord::koffiebord
 
 koffiebord::~koffiebord ( ) {
-  bordvakje* col_fol = ingang;
+  // bordvakje* col_fol = ingang;
   bordvakje* deleter;
   bordvakje* hulp_deleter;
   
   // while (ingang -> buren[4]){
   //   ingang = ingang -> buren[4];
   // }
+  // while (ingang){
+  //   hulp_deleter = col_fol;
+  //   col_fol = col_fol -> buren[4];
+  //   while (hulp_deleter){
+  //     deleter = hulp_deleter;
+  //     hulp_deleter = hulp_deleter -> buren[2];
+  //     delete deleter;
+  //   }
+  // }
   while (ingang){
-    hulp_deleter = col_fol;
-    col_fol = col_fol -> buren[4];
+    hulp_deleter = ingang;
+    ingang = ingang -> buren[4];
     while (hulp_deleter){
       deleter = hulp_deleter;
       hulp_deleter = hulp_deleter -> buren[2];
@@ -212,7 +221,7 @@ bordvakje* koffiebord::readcoord(int i, int j){
 }
 
 void koffiebord::koffies(){
-  srand(time(0));
+  // srand(time(0));
   bordvakje* ober = ingang;
   int x_pos,y_pos;
   int controle = 0;
@@ -225,7 +234,7 @@ void koffiebord::koffies(){
     x_pos = rand() % breedte;
     y_pos = rand() % hoogte;
     ober = readcoord(x_pos,y_pos);
-    cout << x_pos << " " << y_pos << endl;
+    // cout << x_pos << " " << y_pos << endl;
     if (ober -> marked == false){
       ober -> marked = true;
 
@@ -257,6 +266,7 @@ void koffiebord::closed_counter(){
   bordvakje* left_col = ingang;
   bordvakje* counter;
   closed_cells = 0;
+  
   while (left_col){
     counter  = left_col;
     while (counter){
@@ -300,7 +310,6 @@ void koffiebord::rand_zet(){
     while (pos_controle){
       if (pos_controle -> geopend == false && pos_controle -> flag == false){
         controle++;
-        cout << controle << endl;
       }
       if (controle == pos_count){
         break;  
@@ -347,32 +356,47 @@ void koffiebord::doe_zet(bordvakje* pos){
 void koffiebord::koffie_zet(){
   bordvakje* left_col = ingang;
   bordvakje* ober;
-  int koffie_pos;
+  int koffie_plaats;
   int controle = 0;
-  koffie_pos = rand() % (breedte*hoogte - aantal_koffies);
-  if (koffie_pos == 0){
-    koffie_pos = 1;
+  int rij_tel = 0;
+  int controle_mark = 0;
+  int aantal_vakjes = 0;
+  koffie_plaats = rand() % ((breedte*hoogte) - aantal_koffies);
+  if (koffie_plaats == 0){
+    koffie_plaats = 1;
   }
-  
-
+  cout << koffie_plaats << endl;
+  cout << aantal_koffies << endl;
   while (left_col /* && koffie_pos != controle*/){
+    // cout << rij_tel << endl;
     ober = left_col;
     while (ober /* && koffie_pos != controle*/){
+      if (ober -> marked == true){
+        controle_mark++;
+        // cout << controle_mark << " Marks" << endl;
+      }
+      
+
       if (ober -> marked == false){
         controle++;
-        cout << controle << endl;
+        // cout << controle << "  " << koffie_plaats << endl;
       }
-      if (controle == koffie_pos){
+      // aantal_vakjes++;
+      // cout << aantal_vakjes << endl;
+      if (controle == koffie_plaats){
         break;
       }
       
       ober = ober -> buren[2];
     }
-    if (controle == koffie_pos){
+    if (controle == koffie_plaats){
       break;
     }
+    rij_tel++;
     left_col = left_col -> buren[4];
+    
   }
+  
   for (int i = 0; i < 8; i++){
     if (ober -> buren[i]){
       ober -> buren[i] -> aantal_buren++;
@@ -423,6 +447,114 @@ void koffiebord::speler_af(){
   "Volgende keer beter" << endl;
 }
 
+void koffiebord::comp(){
+  int aantal_runs = 0;
+  int a[100]{0} ,b[100]{0};
+  cout << "Hoe vaak wil je het programma laten gaan?: ";
+  aantal_runs = read_num(7);
+  int test = 0;
+
+  for (int i = 0; i < aantal_runs; i++){
+    test++;
+    while (comp_af == false && comp_win == false){
+      comp_zet();
+    }
+    
+    if (comp_af == true){
+      a[comp_zetten]++;  
+    } else if (comp_win == true){
+      b[comp_zetten]++;
+    }
+    
+    reset_bord();
+    koffies();
+    comp_zetten = 0;
+    comp_win = false;
+    comp_af = false;
+  }
+
+  for (int i = 1; i < 30; i++){
+    cout << "Aantal zetten: " << i << "  Aantal keer: " << a[i] << 
+    "     Aantal zetten: " << i <<  "  Aantal keer: " << b[i] << endl;
+  }
+}
+
+void koffiebord::tester(){
+  for (int i = 0; i < 10; i++){
+    reset_bord();
+  }
+}
+
+void koffiebord::comp_zet(){
+  closed_counter();
+  bordvakje* left_col = ingang;
+  bordvakje* pos_controle;
+  int pos_count = 0;
+  int controle = -1;
+
+  if (closed_cells == aantal_koffies){
+    comp_win = true;
+    return;
+  }
+  
+
+  pos_count = rand() % (closed_cells - 1);
+  // cout << pos_count << endl;
+  while (controle != pos_count){
+    pos_controle = left_col;
+
+    while (pos_controle){
+      if (pos_controle -> geopend == false && pos_controle -> flag == false){
+        controle++;
+        // cout << controle << endl;
+      }
+      if (controle == pos_count){
+        break;  
+      }
+      pos_controle = pos_controle -> buren[2];
+    }
+    left_col = left_col -> buren[4];
+  }
+  // cout << "olla" << endl;
+  comp_doe_zet(pos_controle);
+}
+
+
+void koffiebord::comp_doe_zet(bordvakje* pos){
+  if (pos -> marked == true){
+    if (comp_zetten == 0){
+      // cout << "crash 0" << endl;
+      comp_zetten--;
+      koffie_zet();
+      pos -> marked = false;
+      for (int i = 0; i < 8; i++){
+        if (pos -> buren[i]){
+          pos -> buren[i] -> aantal_buren--;
+        }
+      }
+      pos -> geopend = true;
+    } else {
+      // cout << "crash 1" << endl;
+      comp_af = true;
+    }
+  } else if (pos -> geopend == true){
+    // cout << "crash 3";
+    comp_zet();
+  } else {
+    // cout << "crash 4" << endl;
+    pos -> geopend = true;
+  }
+  
+  if (pos -> aantal_buren == 0){
+    // cout << "crash 2" << endl;
+    flood_fill(pos);
+  }
+  comp_zetten++;
+
+}
+
+
+
 void koffiebord::reset_bord(){
   bordvakje* left_col = ingang;
   bordvakje* reseter;
@@ -433,12 +565,12 @@ void koffiebord::reset_bord(){
       reseter -> aantal_buren = 0;
       reseter -> marked = false;
       reseter -> flag = false;
-      // reseter -> geopend = false;
+      reseter -> geopend = false;
       reseter -> aantal_buren = 0;
       reseter = reseter -> buren[2];
     }
     left_col = left_col -> buren[4];
   }
-  koffies();
+  // koffies();
 
 }
