@@ -24,16 +24,18 @@ class koffiebord {
     void ritsen();
     void flood_fill(bordvakje* pos);
     void doe_zet(bordvakje* pos);
-    void koffie_zet();
     void closed_counter();
+    void koffie_zet();
     void speler_af();
     int closed_cells;
-    int hoogte, breedte, percentage;
     int aantal_koffies;
     int zetten;
 
     // void doe_zet(bordvakje* pos);
   public:
+    bool comp_af;
+    void reset_bord();
+    int hoogte, breedte, percentage;
     bordvakje* copybord();
     bordvakje* ingang;
     bool spel_af;

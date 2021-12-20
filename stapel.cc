@@ -60,17 +60,17 @@ void stapel::haalvanstapel(koffiebord* & player_bord){
   // delete oud_vakje;
   // cout << player_bord -> ingang << endl;
 
-  // stapelvakje* oud_vakje = last_in;
+  stapelvakje* oud_vakje = last_in;
 
-  // cout << "Haal van stapel:" << endl;
-  // cout << oud_vakje << endl;
-  // player_bord -> ~koffiebord();
+  cout << "Haal van stapel:" << endl;
+  cout << oud_vakje << endl;
+  player_bord -> ~koffiebord();
   
-  // last_in = oud_vakje;
+  last_in = oud_vakje;
 
-  // player_bord = oud_vakje -> stapel_bord_ing;
-  // delete oud_vakje;
-  // cout << player_bord -> ingang << endl;
+  player_bord = oud_vakje -> stapel_bord_ing;
+  delete oud_vakje;
+  cout << player_bord -> ingang << endl;
 
   // return oude_bord;
 }//stapel::haalvanstapel

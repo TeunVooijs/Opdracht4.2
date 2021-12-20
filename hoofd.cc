@@ -62,7 +62,7 @@ int read_num(int aantal){
 
 void menu(koffiebord* & player_koffiebord){
 	int arr[2];
-	stapel* st = new stapel;
+	// stapel* st = new stapel;
 
   while (true){
 		
@@ -78,7 +78,7 @@ void menu(koffiebord* & player_koffiebord){
     case 's': case 'S':
       return;
     case 'z': case 'Z':
-			st -> zetopstapel(player_koffiebord);
+			// st -> zetopstapel(player_koffiebord);
       player_koffiebord -> player_zet();
       break;
     case 'f': case 'F':
@@ -86,14 +86,15 @@ void menu(koffiebord* & player_koffiebord){
       break;
     case 'r': case 'R':
     cout << "bla" << endl;
-			st -> zetopstapel(player_koffiebord);
+			// st -> zetopstapel(player_koffiebord);
       player_koffiebord -> rand_zet();
       break;
     case 'c': case 'C':
       // player_koffiebord -> choofd(player_koffiebord);
       return;
     case 't': case 'T':
-		 	st -> haalvanstapel(player_koffiebord);
+			player_koffiebord -> reset_bord();
+		 	// st -> haalvanstapel(player_koffiebord);
 			//  cout << "Test" << endl;
 		  break;
 		default:
